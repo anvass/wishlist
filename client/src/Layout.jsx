@@ -73,7 +73,7 @@ function Layout() {
                   <Nav.Item className="d-flex align-items-center py-3">
                     <Button
                       variant="link"
-                      className="text-decoration-none p-0"
+                      className="text-decoration-none rounded-pill"
                       onClick={logoutHandler}
                     >
                       Logout
@@ -99,12 +99,14 @@ function Layout() {
         </Row>
       </Container>
 
-      <Container>
-        <Outlet context={{ user, setUser }} />
-      </Container>
+      <Outlet context={{ user, setUser }} />
 
-      <Container>
-        <p className="text-center">&copy; All rights reserved.</p>
+      <Container className="d-flex justify-content-center align-items-end">
+        <Row>
+          <Col>
+            <p className="text-center m-0 p-3">&copy; All rights reserved.</p>
+          </Col>
+        </Row>
       </Container>
     </>
   );

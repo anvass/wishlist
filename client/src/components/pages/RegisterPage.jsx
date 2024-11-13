@@ -45,6 +45,7 @@ function RegisterPage() {
         <Form.Group className="mb-3" controlId="formGroupName">
           <Form.Label>Name</Form.Label>
           <Form.Control
+            className="rounded-pill p-3"
             type="text"
             name="username"
             placeholder="Enter your name"
@@ -56,6 +57,7 @@ function RegisterPage() {
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label>E-mail</Form.Label>
           <Form.Control
+            className="rounded-pill p-3"
             type="email"
             name="email"
             placeholder="Enter e-mail"
@@ -67,6 +69,7 @@ function RegisterPage() {
         <Form.Group className="mb-3" controlId="formGroupPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
+            className="rounded-pill p-3"
             type="password"
             name="password"
             placeholder="Enter password"
@@ -75,7 +78,7 @@ function RegisterPage() {
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" className="btn-lg rounded-pill">
           Register
         </Button>
       </Form>

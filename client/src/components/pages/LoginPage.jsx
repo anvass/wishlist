@@ -43,6 +43,7 @@ function LoginPage() {
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label>E-mail</Form.Label>
           <Form.Control
+            className="rounded-pill p-3"
             type="email"
             name="email"
             placeholder="Enter e-mail"
@@ -54,6 +55,7 @@ function LoginPage() {
         <Form.Group className="mb-3" controlId="formGroupPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
+            className="rounded-pill p-3"
             type="password"
             name="password"
             placeholder="Enter password"
@@ -62,7 +64,7 @@ function LoginPage() {
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" className="btn-lg rounded-pill">
           Login
         </Button>
       </Form>

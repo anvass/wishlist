@@ -3,6 +3,7 @@ import Layout from './Layout';
 import MainPage from './components/pages/MainPage';
 import RegisterPage from './components/pages/RegisterPage';
 import LoginPage from './components/pages/LoginPage';
+import WishesPage from './components/pages/WishesPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -21,6 +22,10 @@ function App() {
         {
           path: '/login',
           element: <LoginPage />,
+        },
+        {
+          path: '/wishes',
+          element: <WishesPage />,
         },
       ],
     },
