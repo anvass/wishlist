@@ -1,0 +1,4 @@
+PORT=3100
+DB=postgres://USER_NAME:PASSWORD@localhost:DB_PORT/DB_NAME
+ACCESS_TOKEN_SECRET=secretnayastrokadlyaaccsesstokena
+REFRESH_TOKEN_SECRET=secretnayastrokadlyarefreshtokena
