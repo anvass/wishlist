@@ -11,7 +11,7 @@ function LoginPage() {
     password: '',
   });
   const navigate = useNavigate();
-  const { user, setUser } = useOutletContext();
+  const { setUser } = useOutletContext();
 
   const changeHandler = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));

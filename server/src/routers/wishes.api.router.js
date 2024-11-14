@@ -1,5 +1,3 @@
-// npx sequelize model:generate --name Wish --attributes name:string,description:string,category:string,price:integer,isCompleted:boolean,userId:integer
-
 const router = require('express').Router();
 const { Wish } = require('../../db/models');
 const { verifyAccessToken } = require('../middlewares/verifyTokens');
@@ -35,11 +33,31 @@ router.post('/', verifyAccessToken, async (req, res) => {
   }
 });
 
+router.put('/:id', verifyAccessToken, async (req, res) => {
+  try {
+    const wish = await Wish.findOne({
+      where: {
+        id: req.params.id,
+        // userId: res.locals.user.id,
+      },
+    });
+
+    const { name, description, price } = req.body;
+    wish.name = name;
+    wish.description = description;
+    wish.price = price;
+
+    await wish.save();
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(400);
+  }
+});
+
 router.delete('/:id', verifyAccessToken, async (req, res) => {
   try {
-    // await Wish.destroy({ where: { id: req.params.id } });
-    // return res.sendStatus(204);
-
     const wish = await Wish.findByPk(req.params.id);
 
     if (wish.userId === res.locals.user.id) {
