@@ -36,7 +36,7 @@ function RegisterPage() {
     console.log(response.data);
     setUser(response.data.user);
     setAccessToken(response.data.accessToken);
-    navigate('/');
+    navigate('/wish');
   };
 
   return (

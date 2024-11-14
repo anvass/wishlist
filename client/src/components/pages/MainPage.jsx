@@ -1,11 +1,12 @@
+import { Fragment } from 'react';
 import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/esm/Col';
+import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 
 function MainPage() {
   return (
-    <>
+    <Fragment>
       <Container className="text-center">
         <Row>
           <Col>
@@ -30,7 +31,7 @@ function MainPage() {
         <Row className="d-flex ">
           <Col>
             <Link
-              to="/register"
+              to="/wishes"
               className="btn btn-lg mx-auto rounded-pill"
               style={{ maxWidth: 500 + 'px' }}
             >
@@ -39,7 +40,7 @@ function MainPage() {
           </Col>
         </Row>
       </Container>
-    </>
+    </Fragment>
   );
 }
 

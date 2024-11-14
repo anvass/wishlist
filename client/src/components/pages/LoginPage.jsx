@@ -34,7 +34,7 @@ function LoginPage() {
     setUser(response.data.user);
     console.log('set user in login page');
     setAccessToken(response.data.accessToken);
-    navigate('/');
+    navigate('/wishes');
   };
 
   return (

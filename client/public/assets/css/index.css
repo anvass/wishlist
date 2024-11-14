@@ -16,6 +16,10 @@
   --bs-link-hover-color-rgb: var(--darkcolor);
   --bs-body-color: var(--primary-accent-color);
 
+  .btn-close {
+    --bs-btn-close-color: var(--primary-accent-color);
+  }
+
   a:hover:not(.btn) {
     text-decoration: underline !important;
   }
@@ -42,7 +46,8 @@
     background-color: var(--primary-accent-color) !important;
   }
 
-  form input::placeholder {
+  form input::placeholder,
+  form textarea::placeholder {
     color: var(--light-color);
     opacity: 0.4;
   }

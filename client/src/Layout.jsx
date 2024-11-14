@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import axiosInstance, { setAccessToken } from './api/axiosInstance';
 
@@ -12,18 +12,17 @@ function Layout() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  async function getUserData() {
-    const response = await axiosInstance.get(
-      `${import.meta.env.VITE_API}/token/refresh`
-    );
-    // console.log(response);
-    // console.log(response.data);
-    setUser(response.data.user);
-    console.log('set user in layout');
-  }
-
   useEffect(() => {
     console.log('Mount!');
+    async function getUserData() {
+      const response = await axiosInstance.get(
+        `${import.meta.env.VITE_API}/token/refresh`
+      );
+      // console.log(response);
+      // console.log(response.data);
+      setUser(response.data.user);
+      console.log('set user in layout');
+    }
     getUserData();
   }, []);
 
@@ -41,7 +40,7 @@ function Layout() {
   };
 
   return (
-    <>
+    <Fragment>
       <Container>
         <Row className="d-flex align-items-center">
           <Col
@@ -64,7 +63,7 @@ function Layout() {
               className="justify-content-center justify-content-md-end"
             >
               {user ? (
-                <>
+                <Fragment>
                   <Nav.Item className="d-flex align-items-center me-3 py-3">
                     <Link to="/profile" className="text-decoration-none">
                       {user.username}
@@ -79,9 +78,9 @@ function Layout() {
                       Logout
                     </Button>
                   </Nav.Item>
-                </>
+                </Fragment>
               ) : (
-                <>
+                <Fragment>
                   <Nav.Item className="me-3 py-3">
                     <Link to="/register" className="text-decoration-none">
                       Register
@@ -92,7 +91,7 @@ function Layout() {
                       Login
                     </Link>
                   </Nav.Item>
-                </>
+                </Fragment>
               )}
             </Nav>
           </Col>
@@ -108,7 +107,7 @@ function Layout() {
           </Col>
         </Row>
       </Container>
-    </>
+    </Fragment>
   );
 }
 
