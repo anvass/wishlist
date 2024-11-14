@@ -13,7 +13,7 @@ function RegisterPage() {
     password: '',
   });
   const navigate = useNavigate();
-  const { user, setUser } = useOutletContext();
+  const { setUser } = useOutletContext();
 
   const changeHandler = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -36,7 +36,7 @@ function RegisterPage() {
     console.log(response.data);
     setUser(response.data.user);
     setAccessToken(response.data.accessToken);
-    navigate('/wish');
+    navigate('/wishes');
   };
 
   return (
