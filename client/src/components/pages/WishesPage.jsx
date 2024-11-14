@@ -1,13 +1,14 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import axiosInstance from '../../api/axiosInstance';
 import WishModalForm from '../ui/WishModalForm';
+import WishList from '../ui/WishList';
 
 function WishesPage() {
-  const [wishes, setWishes] = useState([]);
+  const [waitingdWishes, setWaitingWishes] = useState([]);
+  const [completedWishes, setCompletedWishes] = useState([]);
+
   const [currentEditWish, setCurrentEditWish] = useState();
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -16,12 +17,15 @@ function WishesPage() {
     const response = await axiosInstance.get(
       `${import.meta.env.VITE_API}/wishes`
     );
-    // console.log('response-response', response);
 
     if (response.status === 200) {
-      setWishes(response.data);
+      const wishes = response.data;
+
+      setWaitingWishes(wishes.filter((wish) => !wish.isCompleted));
+      setCompletedWishes(wishes.filter((wish) => wish.isCompleted));
     } else {
-      setWishes([]);
+      setWaitingWishes([]);
+      setCompletedWishes([]);
     }
   }
 
@@ -68,57 +72,48 @@ function WishesPage() {
     }
   };
 
+  const toggleWishHandler = async (wish) => {
+    console.log('toggle');
+    const response = await axiosInstance.patch(
+      `${import.meta.env.VITE_API}/wishes/${wish.id}`,
+      { isCompleted: !wish.isCompleted }
+    );
+    console.log('toggle response', response);
+    if (response.status === 200) {
+      await fetchWishes();
+    }
+  };
+
   return (
     <Container>
       <h1 className="text-center mb-5">My wishlist</h1>
       <h2 className="text-center text-decoration-underline mb-5">
         Wishes waiting to be fulfilled
       </h2>
-      {wishes.map((wish) => (
-        <Fragment key={wish.id}>
-          <Row>
-            <Col xs={12} md={6}>
-              <p>{wish.name}</p>
-              <p>{wish.description}</p>
-              <p>{wish.price}</p>
-            </Col>
-            <Col
-              xs={12}
-              md={6}
-              className="d-flex justify-content-center justify-content-md-end align-items-center"
-            >
-              <Button
-                className="btn-new btn-lg p-2 me-3"
-                style={{
-                  maxWidth: '100px',
-                  width: '100%',
-                }}
-                onClick={() => deleteWishHandler(wish.id)}
-              >
-                Delete
-              </Button>
-              <Button
-                className="btn-new btn-lg p-2"
-                style={{ maxWidth: '100px', width: '100%' }}
-                onClick={() => setEditWishHandler(wish)}
-              >
-                Edit
-              </Button>
-            </Col>
-          </Row>
-
-          <hr />
-        </Fragment>
-      ))}
-
+      <WishList
+        wishes={waitingdWishes}
+        onUpdate={setEditWishHandler}
+        onDelete={deleteWishHandler}
+        onToggleComplete={toggleWishHandler}
+      />
+      <hr />
+      <hr />
+      <hr />
       <h2 className="text-center text-decoration-underline my-5">
-        Wishes already fulfilled
+        Completed wishes
       </h2>
 
+      <WishList
+        wishes={completedWishes}
+        onUpdate={setEditWishHandler}
+        onDelete={deleteWishHandler}
+        onToggleComplete={toggleWishHandler}
+      />
       <Button
         className="btn-new btn-lg d-flex flex-column align-items-center p-4 m-auto position-fixed bottom-0 start-50 mb-5"
         style={{
           transform: 'translate(-50%)',
+          boxShadow: '0px 0px 15px 5px rgba(75,63,96,0.9)',
         }}
         onClick={() => setShowCreateModal(true)}
       >
@@ -141,7 +136,6 @@ function WishesPage() {
           onFormSubmit={updateCurrentWishHandler}
         />
       ) : null}
-
       {showCreateModal ? (
         <WishModalForm
           title="What do you want to add?"

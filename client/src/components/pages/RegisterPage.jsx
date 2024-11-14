@@ -12,6 +12,7 @@ function RegisterPage() {
     email: '',
     password: '',
   });
+  const [serverErrorMessage, setServerErrorMessage] = useState(null);
   const navigate = useNavigate();
   const { setUser } = useOutletContext();
 
@@ -27,16 +28,20 @@ function RegisterPage() {
       email: '',
       password: '',
     });
-
-    const response = await axiosInstance.post(
-      `${import.meta.env.VITE_API}/auth/register`,
-      formData
-    );
-
-    console.log(response.data);
-    setUser(response.data.user);
-    setAccessToken(response.data.accessToken);
-    navigate('/wishes');
+    try {
+      const response = await axiosInstance.post(
+        `${import.meta.env.VITE_API}/auth/register`,
+        formData
+      );
+      console.log('register response', response);
+      if (response.status === 200) {
+        setUser(response.data.user);
+        setAccessToken(response.data.accessToken);
+        navigate('/wishes');
+      }
+    } catch (err) {
+      setServerErrorMessage(err.response.data.message);
+    }
   };
 
   return (
@@ -78,6 +83,7 @@ function RegisterPage() {
             required
           />
         </Form.Group>
+        {serverErrorMessage && <div className="my-3">{serverErrorMessage}</div>}
         <Button variant="primary" type="submit" className="btn-lg rounded-pill">
           Register
         </Button>

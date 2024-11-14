@@ -4,7 +4,7 @@ const { verifyAccessToken } = require('../middlewares/verifyTokens');
 
 router.get('/', verifyAccessToken, async (req, res) => {
   try {
-    console.log('res.locals.user.id', res.locals.user.id);
+    // console.log('res.locals.user.id', res.locals.user.id);
     const wishes = await Wish.findAll({
       where: { userId: res.locals.user.id },
     });
@@ -35,20 +35,33 @@ router.post('/', verifyAccessToken, async (req, res) => {
 
 router.put('/:id', verifyAccessToken, async (req, res) => {
   try {
-    const wish = await Wish.findOne({
-      where: {
-        id: req.params.id,
-        // userId: res.locals.user.id,
-      },
-    });
-
+    // const wish = await Wish.findOne({
+    //   where: {
+    //     id: req.params.id,
+    //     // userId: res.locals.user.id,
+    //   },
+    // });
+    const wish = await Wish.findByPk(req.params.id);
     const { name, description, price } = req.body;
+
     wish.name = name;
     wish.description = description;
     wish.price = price;
 
     await wish.save();
 
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(400);
+  }
+});
+
+router.patch('/:id', verifyAccessToken, async (req, res) => {
+  try {
+    const wish = await Wish.findByPk(req.params.id);
+    const { isCompleted } = req.body;
+    await wish.update({ isCompleted });
     res.sendStatus(200);
   } catch (error) {
     console.error(error);

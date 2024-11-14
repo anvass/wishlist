@@ -16,11 +16,11 @@ router.post('/register', async (req, res) => {
       where: { email },
       defaults: { username, email, password: await bcrypt.hash(password, 10) },
     });
-    console.log('user', user);
-    console.log('isCreated', isCreated);
+
     if (!isCreated) {
-      return res.status(400).json('This user already exists');
+      return res.status(400).json({ message: 'This user already exists' });
     }
+
     const plainUser = user.get();
     delete plainUser.password;
     const { accessToken, refreshToken } = generateTokens({ user: plainUser });
