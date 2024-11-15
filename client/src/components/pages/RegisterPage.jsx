@@ -1,7 +1,7 @@
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import axiosInstance, { setAccessToken } from '../../api/axiosInstance';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -44,7 +44,11 @@ function RegisterPage() {
 
   return (
     <Container>
-      <Form onSubmit={registerHandler} className="d-flex flex-column">
+      <Form
+        onSubmit={registerHandler}
+        className="d-flex flex-column m-auto"
+        style={{ maxWidth: '700px' }}
+      >
         <Form.Group className="mb-3" controlId="formGroupName">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -84,9 +88,23 @@ function RegisterPage() {
         {serverErrorMessage && (
           <div className="my-3 text-danger">{serverErrorMessage}</div>
         )}
-        <Button variant="primary" type="submit" className="btn-lg rounded-pill">
+        <Button
+          variant="primary"
+          type="submit"
+          className="btn-lg rounded-pill m-auto w-100"
+        >
           Register
         </Button>
+        <Row className="mt-3 text-center">
+          <Col>
+            <p className="m-0">
+              Already have an account?
+              <Link to="/login" className="mx-3">
+                Login
+              </Link>
+            </p>
+          </Col>
+        </Row>
       </Form>
     </Container>
   );

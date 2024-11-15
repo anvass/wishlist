@@ -64,6 +64,12 @@
     --bs-btn-active-border-color: transparent;
   }
 
+  .main-btn {
+    --bs-btn-padding-y: 1rem;
+    --bs-btn-padding-x: 4rem;
+    --bs-btn-font-size: 1.5rem;
+  }
+
   form input::placeholder,
   form textarea::placeholder {
     color: var(--light-color);

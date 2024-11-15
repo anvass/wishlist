@@ -46,7 +46,7 @@ function MainPage() {
           <Col>
             <Link
               to="/wishes"
-              className="btn btn-primary btn-lg mx-auto rounded-pill"
+              className="btn btn-primary btn-lg mx-auto rounded-pill main-btn"
               style={{ maxWidth: 500 + 'px' }}
             >
               Create a wishlist

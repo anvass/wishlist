@@ -42,7 +42,11 @@ function LoginPage() {
 
   return (
     <Container>
-      <Form onSubmit={loginHandler} className="d-flex flex-column">
+      <Form
+        onSubmit={loginHandler}
+        className="d-flex flex-column m-auto"
+        style={{ maxWidth: '700px' }}
+      >
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label>E-mail</Form.Label>
           <Form.Control
@@ -70,7 +74,11 @@ function LoginPage() {
         {serverErrorMessage && (
           <div className="my-3 text-danger">{serverErrorMessage}</div>
         )}
-        <Button variant="primary" type="submit" className="btn-lg rounded-pill">
+        <Button
+          variant="primary"
+          type="submit"
+          className="btn-lg rounded-pill m-auto w-100"
+        >
           Login
         </Button>
         <Row className="mt-3 text-center">
