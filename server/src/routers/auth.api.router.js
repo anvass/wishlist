@@ -7,7 +7,7 @@ const cookieConfig = require('../configs/cookie.config');
 
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
-  console.log('username, email, password', username, email, password);
+
   if (!(username && email && password)) {
     res.status(400).json({ message: 'Required fields missing' });
   }

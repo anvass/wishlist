@@ -10,17 +10,26 @@ import axiosInstance, { setAccessToken } from './api/axiosInstance';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [load, setLoad] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function getUserData() {
+  async function getUserData() {
+    try {
       const response = await axiosInstance.get(
         `${import.meta.env.VITE_API}/token/refresh`
       );
 
       setUser(response.data.user);
+
       console.log('set user in layout');
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoad(false);
     }
+  }
+
+  useEffect(() => {
     getUserData();
   }, []);
 
@@ -99,7 +108,7 @@ function App() {
         </Row>
       </Container>
 
-      <Outlet context={{ user, setUser }} />
+      <Outlet context={{ user, setUser, load }} />
 
       <Container className="d-flex justify-content-center align-items-end">
         <Row>

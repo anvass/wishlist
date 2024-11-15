@@ -75,9 +75,6 @@
     fill: var(--dark-color);
   }
 
-  .wishes {
-    margin-bottom: 200px;
-  }
   .wishes .row:not(:last-child) {
     border-bottom: 2px dotted var(--secondary-accent-color);
   }

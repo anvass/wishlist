@@ -2,8 +2,10 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import axiosInstance, { setAccessToken } from '../../api/axiosInstance';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function LoginPage() {
   const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ function LoginPage() {
   });
   const navigate = useNavigate();
   const { setUser } = useOutletContext();
+  const [serverErrorMessage, setServerErrorMessage] = useState(null);
 
   const changeHandler = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -25,16 +28,20 @@ function LoginPage() {
       password: '',
     });
 
-    const response = await axiosInstance.post(
-      `${import.meta.env.VITE_API}/auth/login`,
-      formData
-    );
-
-    console.log(response.data);
-    setUser(response.data.user);
-    console.log('set user in login page');
-    setAccessToken(response.data.accessToken);
-    navigate('/wishes');
+    try {
+      const response = await axiosInstance.post(
+        `${import.meta.env.VITE_API}/auth/login`,
+        formData
+      );
+      if (response.status === 200) {
+        setUser(response.data.user);
+        console.log('set user in login page');
+        setAccessToken(response.data.accessToken);
+        navigate('/wishes');
+      }
+    } catch (err) {
+      setServerErrorMessage(err.response.data.message);
+    }
   };
 
   return (
@@ -64,9 +71,20 @@ function LoginPage() {
             required
           />
         </Form.Group>
+        {serverErrorMessage && <div className="my-3">{serverErrorMessage}</div>}
         <Button variant="primary" type="submit" className="btn-lg rounded-pill">
           Login
         </Button>
+        <Row className="mt-3 text-center">
+          <Col>
+            <p className="m-0">
+              Don&apos;t have an account?
+              <Link to="/register" className="mx-3">
+                Register
+              </Link>
+            </p>
+          </Col>
+        </Row>
       </Form>
     </Container>
   );

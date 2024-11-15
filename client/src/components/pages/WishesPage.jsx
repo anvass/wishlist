@@ -96,23 +96,9 @@ function WishesPage() {
         onDelete={deleteWishHandler}
         onToggleComplete={toggleWishHandler}
       />
-      <hr />
-      <hr />
-      <hr />
-      <h2 className="text-center text-decoration-underline my-5">
-        Completed wishes
-      </h2>
-
-      <WishList
-        wishes={completedWishes}
-        onUpdate={setEditWishHandler}
-        onDelete={deleteWishHandler}
-        onToggleComplete={toggleWishHandler}
-      />
       <Button
-        className="btn-new btn-lg d-flex flex-column align-items-center p-4 m-auto position-fixed bottom-0 start-50 mb-5"
+        className="btn-new btn-lg d-flex flex-column align-items-center p-4 m-auto mb-5"
         style={{
-          transform: 'translate(-50%)',
           boxShadow: '0px 0px 15px 5px rgba(75,63,96,0.9)',
         }}
         onClick={() => setShowCreateModal(true)}
@@ -126,6 +112,19 @@ function WishesPage() {
         </svg>
         <span>New wish</span>
       </Button>
+      <hr />
+      <hr />
+      <hr />
+      <h2 className="text-center text-decoration-underline my-5">
+        Completed wishes
+      </h2>
+
+      <WishList
+        wishes={completedWishes}
+        onUpdate={setEditWishHandler}
+        onDelete={deleteWishHandler}
+        onToggleComplete={toggleWishHandler}
+      />
 
       {showEditModal ? (
         <WishModalForm

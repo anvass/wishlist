@@ -33,9 +33,10 @@ function RegisterPage() {
         `${import.meta.env.VITE_API}/auth/register`,
         formData
       );
-      console.log('register response', response);
+
       if (response.status === 200) {
         setUser(response.data.user);
+        console.log('set user on register page');
         setAccessToken(response.data.accessToken);
         navigate('/wishes');
       }

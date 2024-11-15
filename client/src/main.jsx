@@ -16,13 +16,13 @@ createRoot(document.getElementById('root')).render(
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element={<MainPage />} />
+
+        <Route path="register" element={<RegisterPage />} />
+        <Route path="login" element={<LoginPage />} />
         <Route element={<UserRequired />}>
           <Route path="/wishes" element={<WishesPage />} />
           {/* <Route path="/profile" element={<UserPage />} /> */}
         </Route>
-
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="login" element={<LoginPage />} />
       </Route>
     </Routes>
   </BrowserRouter>
