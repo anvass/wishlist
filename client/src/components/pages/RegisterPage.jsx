@@ -1,7 +1,4 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-
+import { Form, Button, Container } from 'react-bootstrap';
 import { useState } from 'react';
 import axiosInstance, { setAccessToken } from '../../api/axiosInstance';
 import { useNavigate, useOutletContext } from 'react-router-dom';
@@ -84,7 +81,9 @@ function RegisterPage() {
             required
           />
         </Form.Group>
-        {serverErrorMessage && <div className="my-3">{serverErrorMessage}</div>}
+        {serverErrorMessage && (
+          <div className="my-3 text-danger">{serverErrorMessage}</div>
+        )}
         <Button variant="primary" type="submit" className="btn-lg rounded-pill">
           Register
         </Button>

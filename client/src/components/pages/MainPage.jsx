@@ -1,10 +1,24 @@
-import { Fragment } from 'react';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Fragment, useEffect, useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axiosInstance from '../../api/axiosInstance';
 
 function MainPage() {
+  const [wishesCount, setWishesCount] = useState(null);
+
+  async function getWishesCount() {
+    const response = await axiosInstance.get(
+      `${import.meta.env.VITE_API}/wishes/statistics`
+    );
+    if (response.status === 200) {
+      // console.log('count response', response);
+      setWishesCount(response.data.count);
+    }
+  }
+  useEffect(() => {
+    getWishesCount();
+  }, []);
+
   return (
     <Fragment>
       <Container className="text-center">
@@ -39,6 +53,16 @@ function MainPage() {
             </Link>
           </Col>
         </Row>
+        {wishesCount ? (
+          <Row className="my-5">
+            <Col>
+              <p className="fs-3">
+                People have already made{' '}
+                <span className="fw-bold">{wishesCount}</span> wishes with us
+              </p>
+            </Col>
+          </Row>
+        ) : null}
       </Container>
     </Fragment>
   );

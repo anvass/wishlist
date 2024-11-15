@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -66,5 +67,12 @@ function WishList({ wishes, onDelete, onUpdate, onToggleComplete }) {
     </Container>
   );
 }
+
+WishList.propTypes = {
+  wishes: PropTypes.array,
+  onDelete: PropTypes.func,
+  onUpdate: PropTypes.func,
+  onToggleComplete: PropTypes.func,
+};
 
 export default WishList;

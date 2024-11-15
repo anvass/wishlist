@@ -1,11 +1,7 @@
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import axiosInstance, { setAccessToken } from '../../api/axiosInstance';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 function LoginPage() {
   const [formData, setFormData] = useState({
@@ -71,7 +67,9 @@ function LoginPage() {
             required
           />
         </Form.Group>
-        {serverErrorMessage && <div className="my-3">{serverErrorMessage}</div>}
+        {serverErrorMessage && (
+          <div className="my-3 text-danger">{serverErrorMessage}</div>
+        )}
         <Button variant="primary" type="submit" className="btn-lg rounded-pill">
           Login
         </Button>

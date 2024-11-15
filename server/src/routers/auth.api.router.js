@@ -35,13 +35,20 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+
   if (!(email && password)) {
     res.status(400).json({ message: 'Required fields missing' });
   }
   try {
     const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+
     const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword || !user) {
+    
+    if (!isValidPassword) {
       return res.status(400).json({ message: 'Incorrect email or password' });
     }
 
@@ -55,7 +62,6 @@ router.post('/login', async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Login error' });
   }
-  // res.end();
 });
 
 router.get('/logout', async (req, res) => {

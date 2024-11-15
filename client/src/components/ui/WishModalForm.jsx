@@ -2,6 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function WishModalForm({
   title,
@@ -77,5 +78,13 @@ function WishModalForm({
     </Modal>
   );
 }
+
+WishModalForm.propTypes = {
+  title: PropTypes.string,
+  action: PropTypes.string,
+  onModalClose: PropTypes.func,
+  onFormSubmit: PropTypes.func,
+  data: PropTypes.object,
+};
 
 export default WishModalForm;
